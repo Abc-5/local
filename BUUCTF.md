@@ -279,3 +279,77 @@ print("password.2= "+password)
 ```
 
 得到密码输入即可
+
+
+
+### Java逆向解密
+
+反编译得到文件
+
+```java
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Reverse {
+
+   public static void main(String[] args) {
+      Scanner s = new Scanner(System.in);
+      System.out.println("Please input the flag ");
+      String str = s.next();
+      System.out.println("Your input is ");
+      System.out.println(str);
+      char[] stringArr = str.toCharArray();
+      Encrypt(stringArr);
+   }
+
+   public static void Encrypt(char[] arr) {
+      ArrayList Resultlist = new ArrayList();
+
+      for(int KEY = 0; KEY < arr.length; ++KEY) {
+         int KEYList = arr[KEY] + 64 ^ 32;
+         Resultlist.add(Integer.valueOf(KEYList));
+      }
+
+      int[] var5 = new int[]{180, 136, 137, 147, 191, 137, 147, 191, 148, 136, 133, 191, 134, 140, 129, 135, 191, 65};
+      ArrayList var6 = new ArrayList();
+
+      for(int j = 0; j < var5.length; ++j) {
+         var6.add(Integer.valueOf(var5[j]));
+      }
+
+      System.out.println("Result:");
+      if(Resultlist.equals(var6)) {
+         System.out.println("Congratulations");
+      } else {
+         System.err.println("Error");
+      }
+
+   }
+}
+
+```
+
+可以写出
+
+```python
+flagy=[180, 136, 137, 147, 191, 137, 147, 191, 148, 136, 133, 191, 134, 140, 129, 135, 191, 65]
+flag=""
+for i in range(0,len(flagy)):
+    flag+=chr(flagy[i]-64^32)
+print(flag)
+```
+
+
+
+### JustRE
+
+载入IDA
+
+![image](https://gitee.com/emtanling/ctf_-re/raw/master/images/justre_1.png)
+
+由第14行的sprintf得flag
+
+```
+flag{1999902069a45792d233ac}
+```
+
